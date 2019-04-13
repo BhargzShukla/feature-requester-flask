@@ -1,0 +1,10 @@
+version: '3.0'
+services:
+  app:
+    restart: always
+    build: .
+    ports:
+      - 5000:5000
+    volumes: 
+      - .:/app
+    entrypoint: ["python", "manage.py","runserver"]
