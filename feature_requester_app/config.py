@@ -24,5 +24,10 @@ class TestingConfiguration(DebugConfiguration):
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
 
 
+class DockerConfiguration(BaseConfiguration):
+    SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
+    DEBUG = True
+
+
 class ProductionConfiguration(BaseConfiguration):
     DEBUG = False
