@@ -14,7 +14,7 @@ use as - python manage.py [command]
 
 runserver - runs the flask local server
 
-create_db - create the initial database tables
+create_db - create the initial database tables.
 
 init_db - populate the database with initial data. Make sure to run this
 after create_db is run.
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.command == 'runserver':
-        app.run()
+        app.run(debug=True, host='0.0.0.0', port=5000)
     elif args.command == 'create_db':
         models.db.create_all()
     elif args.command == 'drop_db':
