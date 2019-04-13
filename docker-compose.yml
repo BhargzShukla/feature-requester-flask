@@ -7,4 +7,5 @@ services:
       - 5000:5000
     volumes: 
       - .:/app
-    entrypoint: ["python", "manage.py","runserver"]
+    entrypoint:
+      - ./docker-entrypoint.sh
