@@ -1,0 +1,19 @@
+<!-- Custom CSS file for our header -->
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/_header.css') }}">
+{% endblock css %}
+
+<!-- Contains some information about this project, along with some links (creator's profile, project source code, as well as Flask and SQLAlchemy) -->
+<div class="row d-flex-inline justify-content-center align-items-center">
+    <div class="col-sm-6 col-sm-offset-3 card justify-content-center d-flex-inline" id="header">
+        <div class="card-body">
+            <h3 class="card-title">Feature Requester</h3>
+            <h6 class="card-subtitle mb-2 text-muted">Created by <a href="https://linkedin.com/in/bhargav-shukla/" target="_blank">Bhargav Shukla</a></h6>
+            <p>
+                Feature Requester is an application that allows you to create feature request. You can give your
+                requests a title, description, choose the client it's for, the product area requiring this feature,
+                as well as assign a priority value and target date to it. Developed using <a href="http://flask.pocoo.org/" targer="_blank">Flask</a> and <a href="https://www.sqlalchemy.org/" target="_blank">SQLAlchemy.</a> The app source code is hosted on <a href="#" target="_blank">GitHub.</a>
+            </p>
+        </div>
+    </div>
+</div>

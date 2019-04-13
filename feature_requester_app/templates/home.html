@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Container consisting of feature request creation and viewing elements -->
+<div class="container">
+    <div class="row d-inline-flex w-100 justify-content-between align-items-center">
+        <div class="col align-items-center">
+            <h4 class="float-left" id="header_requests">
+                Requests
+                <!-- Pill shows the total number of feature requests created -->
+                <span class="badge badge-pill badge-secondary" data-bind="text: all_feature_requests().length"></span>
+            </h4>
+        </div>
+        <div class="col align-items-center">
+            <button type="button" class="btn btn-success btn-sm float-right" data-target="#feature_request_modal"
+                data-toggle="modal">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                Add Feature
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Bootstrap 4 list-group to show list of all feature requests,
+    complete with their titles, descriptions, clients, priorities, areas, and target deadlines. -->
+    <div class="list-group" data-bind="foreach: all_feature_requests,
+                visible: all_feature_requests().length > 0">
+        <a class="list-group-item list-group-item-action flex-column-reverse">
+            <div class="d-inline-flex w-100 justify-content-between">
+                <h5 class="mb-1" data-bind="text: title"></h5>
+                <small data-bind="text: target_date"></small>
+            </div>
+            <p class="mb-1 text-info" data-bind="text: description"></p>
+            <div class="d-flex justify-content-between w-100 align-items-center">
+                <div class="p-0">
+                    <small>Client: </small><small data-bind="text: client"></small>
+                </div>
+                <div class="p-0">
+                    <small>Product Area: </small><small data-bind="text: product_area"></small>
+                </div>
+                <div class="p-0">
+                    <small>Priority: </small><small data-bind="text: client_priority"></small>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- Custom Bootstrap 4 modal to dynamically display a feature request form. -->
+<div id="feature_request_modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Request New Feature</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Submitting the form calls the addFeatureRequest method from KnockoutJS which adds a new feature to our list-group above using the API. -->
+                <form data-bind="submit: addFeatureRequest" id="feature_request_form" name="feature_request_form">
+                    <div class="form-group">
+                        <input data-bind="value: title.value" type="text" class="form-control" name="title" id="title"
+                            placeholder="Title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea data-bind="value: description.value" class="form-control" name="description"
+                            id="description" rows="5" placeholder="Description" required></textarea>
+                    </div>
+
+                    <div class="row d-flex w-100 justify-content-around">
+                        <div class="col align-items-center">
+                            <!-- Clients dropdown fetches data from the database through the API and KnockoutJS. -->
+                            <select data-bind="options: clients,
+                                       optionsValue: 'id',
+                                       optionsText: 'name',
+                                       optionsCaption:'Client'" class="form-control" name="client" id="client"
+                                required>
+                            </select>
+                        </div>
+
+                        <div class="col align-items-center">
+                            <input data-bind="value: client_priority" type="number" class="form-control"
+                                name="client_priority" id="client_priority" step="1" placeholder="Client Priority"
+                                required>
+
+                        </div>
+                    </div>
+
+                    <div class="row d-flex w-100 justify-content-around">
+                        <div class="col align-items-center">
+                            <!-- Product areas dropdown fetches data from the database through the API and KnockoutJS. -->
+                            <select data-bind="options: product_areas,
+                                       optionsValue: 'id',
+                                       optionsText: 'name',
+                                       optionsCaption: 'Product Area'" class="form-control" name="product_area"
+                                id="product_area" placeholder="Client" required>
+                            </select>
+                        </div>
+
+                        <div class="col align-items-center">
+                            <input type="date" data-bind="value: target_date" class="form-control" name="target_date"
+                                id="target_date" required>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal" aria-hidden="true">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

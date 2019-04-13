@@ -1,0 +1,27 @@
+.container {
+    width: 50rem;
+}
+
+h4#header_requests {
+    margin-left: 40px;
+    height: auto;
+    width: auto;
+}
+
+.form-control#client,
+.form-control#client_priority,
+.form-control#product_area,
+.form-control#target_date {
+    margin: 10px;
+    height: 40px;
+}
+
+.btn,
+.btn-primary,
+.btn-secondary
+.btn-outline-success {
+    margin: 10px;
+    height: auto;
+    width: auto;
+    border-radius: 20px;
+}

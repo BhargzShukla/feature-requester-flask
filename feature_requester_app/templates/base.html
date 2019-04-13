@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Super important meta tags to be included at the very top here and not to be messed with! -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- CSS Jinja2 block that defines all our required CSS files. Includes Bootstrap 4 (for pleasant UI), FontAwesome (for icons), and a custom CSS file for our home page. -->
+    {% block css %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    {% endblock css %}
+
+    <title>
+        {% block title %}Feature Requester{% endblock title %}
+    </title>
+</head>
+
+<body>
+    {% include 'includes/_header.html' %}
+
+    {% block content %}{% endblock content %}
+
+    <!-- jQuery, Popper.js, Bootstrap, KnockoutJS, and a custom KO script defined here.
+    Bootstrap requires jQuery and Popper.js along with it's own JS script. -->
+    {% block script %}
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+
+    <script type="application/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+    <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js">
+    </script>
+
+    <script type="application/javascript" src="{{ url_for('static', filename='js/home.js') }}">
+    </script>
+    {% endblock script %}
+</body>
+
+</html>
