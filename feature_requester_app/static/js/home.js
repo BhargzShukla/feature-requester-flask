@@ -123,18 +123,6 @@ function FeatureRequestViewModel() {
             }
         });
     };
-
-    self.filteredRequestsCount = ko.observable();
-    self.filterFunction = ko.computed(() => {
-        var items =  ko.utils.arrayFilter(self.allFeatureRequests(), (featureRequest) => {
-            ko.utils.arrayForEach(self.clients(), (client) => {
-                ko.utils.arrayForEach(self.productAreas(), (productArea) => {
-                    return featureRequest.client_id == client.id && featureRequest.product_area_id == productArea.id;
-                });
-            });
-        });
-        return items.length;
-    });
 }
 
 // var featureRequestVM = new FeatureRequestViewModel();
