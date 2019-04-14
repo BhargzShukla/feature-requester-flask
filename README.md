@@ -16,7 +16,7 @@ The app can be deployed on a local machine in 2 ways:
 
 The virtualenv route is fairly straightforward. There's some configuration required to get things up\
 and running. The Docker route is a fully scripted deployment method using the python-3.6 image (built on Debian).\
-There's a Docker instance currently deployed on Heroku, which you can [check out here.](https://feature-requester-flask.herokuapp.com/)
+An instance of the app is currently deployed on Heroku, which you can [check out here.](https://feature-requester-flask.herokuapp.com/)
 
 ## Local Deployment
 
@@ -29,7 +29,7 @@ There's a Docker instance currently deployed on Heroku, which you can [check out
 - Install required packages using pip
     >$ pip install -r requirements.txt
 - Create a dotenv file (.env) using the [sample](https://github.com/BhargzShukla/feature-requester-flask/blob/master/.env_sample) provided
-    >You can change the secret key if you'd like
+    >$ cp .env_sample .env
 - Run the following commands to start an app instance
     >$ python manage.py create_db   (creates all required tables in database)\
     >$ python manage.py init_db     (populates those tables with some initial data using flask-fixtures)\
