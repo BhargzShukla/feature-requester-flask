@@ -49,46 +49,55 @@ ViewModel that contains all page logic
 function FeatureRequestViewModel() {
     var self = this;
 
-    self.all_feature_requests = ko.observableArray([]);
-    self.feature_request = ko.observableArray();
+    self.allFeatureRequests = ko.observableArray([]);
+    self.featureRequest = ko.observableArray();
     self.errors = ko.observableArray();
-    
-    // Fetch all feature requests from database using our API
-    $.getJSON("/api/feature_requests/", (data) => {
-        var feature_requests_from_api = $.map(
-            data['feature_requests'], (item) => {
-                return new FeatureRequestModel(item);
-            });
-        self.all_feature_requests(feature_requests_from_api);
-    });
 
     self.clients = ko.observableArray([]);
+    self.productAreas = ko.observableArray([]);
+
+    // Fetch all feature requests from database using our API
+    self.getFeatureRequests = () => {
+        $.getJSON("/api/feature_requests/", (data) => {
+            var featureRequestsFromApi = $.map(
+                data['feature_requests'], (item) => {
+                    return new FeatureRequestModel(item);
+                });
+            self.allFeatureRequests(featureRequestsFromApi);
+        });
+    };
+    self.getFeatureRequests();
 
     // Fetch all clients from database using our API
-    $.getJSON("/api/clients/", (data) => {
-        var clients_from_api = $.map(
-            data['clients'], (item) => {
-                return new ClientModel(item);
-            });
-        self.clients(clients_from_api);
-    });
-
-    self.product_areas = ko.observableArray([]);
+    self.getClients = () => {
+        $.getJSON("/api/clients/", (data) => {
+            var clientsFromApi = $.map(
+                data['clients'], (item) => {
+                    return new ClientModel(item);
+                });
+            self.clients(clientsFromApi);
+        });
+    }
+    self.getClients();
 
     // Fetch all product areas from database using our API
-    $.getJSON("/api/product_areas/", (data) => {
-        var product_areas_from_api = $.map(
-            data['product_areas'], (item) => {
-                return new ProductAreaModel(item);
-            });
-        self.product_areas(product_areas_from_api);
-    });
+    self.getProductAreas = () => {
+        $.getJSON("/api/product_areas/", (data) => {
+            var productAreasFromApi = $.map(
+                data['product_areas'], (item) => {
+                    return new ProductAreaModel(item);
+                });
+            self.productAreas(productAreasFromApi);
+        });
+    }
+    self.getProductAreas();
 
     // AJAX method to add a new feature request using a modal form
     self.addFeatureRequest = () => {
+        // self.getFeatureRequests();
         var data = $("form#feature_request_form")
             .serializeArray()
-            .map(function(x) {
+            .map(function (x) {
                 this[x.name] = x.value;
                 return this;
             }.bind({}))[0];
@@ -101,10 +110,11 @@ function FeatureRequestViewModel() {
             data: JSON.stringify(data),
             success: (data) => {
                 $("#feature_request_modal").modal("hide");
-                document.getElementById("feature_request_form").reset();
-                self.all_feature_requests.push(
+                self.allFeatureRequests.push(
                     new FeatureRequestModel(ko.toJS(data['data'][0]))
                 );
+                document.getElementById("feature_request_form").reset();
+                self.getFeatureRequests();
                 alert(data['message']);
             },
             error: (errors) => {
@@ -113,7 +123,19 @@ function FeatureRequestViewModel() {
             }
         });
     };
+
+    self.filteredRequestsCount = ko.observable();
+    self.filterFunction = ko.computed(() => {
+        var items =  ko.utils.arrayFilter(self.allFeatureRequests(), (featureRequest) => {
+            ko.utils.arrayForEach(self.clients(), (client) => {
+                ko.utils.arrayForEach(self.productAreas(), (productArea) => {
+                    return featureRequest.client_id == client.id && featureRequest.product_area_id == productArea.id;
+                });
+            });
+        });
+        return items.length;
+    });
 }
 
-var featureRequestVM = new FeatureRequestViewModel();
-ko.applyBindings(featureRequestVM); // Activate KnockoutJS bindings
+// var featureRequestVM = new FeatureRequestViewModel();
+ko.applyBindings(new FeatureRequestViewModel()); // Activate KnockoutJS bindings
