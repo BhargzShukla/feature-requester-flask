@@ -87,7 +87,7 @@ def get_all_feature_requests():
 def update_feature_request(id=None):
     u"""
     API method to update data in an existing feature request.
-    
+
     # TODO: Implement a front-end for updating requests.
     """
     if not id:
@@ -150,7 +150,7 @@ def update_feature_request(id=None):
 def delete_feature_request(id=None):
     u"""
     API method to delete a feature request from database.
-    
+
     # TODO: Implement a front-end to delete requests.
     """
     if not id:
