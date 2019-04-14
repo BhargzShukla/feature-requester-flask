@@ -103,12 +103,13 @@ function FeatureRequestViewModel() {
             }.bind({}))[0];
 
         $.ajax({
-            contentType: "application/json;",
-            dataType: "json",
-            method: "POST",
-            url: "/api/feature_requests/add/",
-            data: JSON.stringify(data),
-            success: (data) => {
+                contentType: "application/json;",
+                dataType: "json",
+                method: "POST",
+                url: "/api/feature_requests/add/",
+                data: JSON.stringify(data)
+            })
+            .done(function (data) {
                 $("#feature_request_modal").modal("hide");
                 self.allFeatureRequests.push(
                     new FeatureRequestModel(ko.toJS(data['data'][0]))
@@ -116,14 +117,13 @@ function FeatureRequestViewModel() {
                 document.getElementById("feature_request_form").reset();
                 self.getFeatureRequests();
                 alert(data['message']);
-            },
-            error: (errors) => {
-                self.errors(errors.responseJSON.errors);
-                alert(errors['message']);
-            }
-        });
+            })
+            .fail(function (jqxhr, textStatus, errorThrown) {
+                var responseBody = jqxhr.responseText;
+                console.log(responseBody);
+                alert(responseBody);
+            });
     };
 }
 
-// var featureRequestVM = new FeatureRequestViewModel();
 ko.applyBindings(new FeatureRequestViewModel()); // Activate KnockoutJS bindings
