@@ -9,40 +9,51 @@
             <h4 class="float-left" id="header_requests">
                 Requests
                 <!-- Pill shows the total number of feature requests created -->
-                <span class="badge badge-pill badge-secondary" data-bind="text: all_feature_requests().length"></span>
+                <span class="badge badge-pill badge-secondary" data-bind="text: allFeatureRequests().length"></span>
             </h4>
         </div>
         <div class="col align-items-center">
-            <button type="button" class="btn btn-success btn-sm float-right" data-target="#feature_request_modal"
-                data-toggle="modal">
+            <button type="button" class="btn btn-success btn-sm float-right align-items-center"
+                data-target="#feature_request_modal" data-toggle="modal">
                 <i class="fas fa-plus" aria-hidden="true"></i>
                 Add Feature
             </button>
         </div>
     </div>
-
-    <!-- Custom Bootstrap 4 list-group to show list of all feature requests,
+    <!-- Custom Bootstrap 4 accordion to show list of all feature requests,
     complete with their titles, descriptions, clients, priorities, areas, and target deadlines. -->
-    <div class="list-group" data-bind="foreach: all_feature_requests,
-                visible: all_feature_requests().length > 0">
-        <a class="list-group-item list-group-item-action flex-column-reverse">
-            <div class="d-inline-flex w-100 justify-content-between">
-                <h5 class="mb-1" data-bind="text: title"></h5>
-                <small data-bind="text: target_date"></small>
+    <div class="accordion" id="accordionParent"
+        data-bind="foreach: allFeatureRequests, visible: allFeatureRequests().length > 0">
+        <div class="card-sm">
+            <div class="card-header" data-bind="attr: { id: 'heading' + $index() }">
+                <button class="btn btn-link d-flex justify-content-between w-100" type="button" data-toggle="collapse"
+                    data-bind="attr: { 'data-target': '#'+'collapse'+$index(),
+                        'aria-controls': 'collapse'+$index() }" aria-expanded="false">
+                    <h6 class="mb-1 float-left" data-bind="text: $data.title"></h6>
+                    <small class="float-right" data-bind="text: $data.target_date"></small>
+                </button>
             </div>
-            <p class="mb-1 text-info" data-bind="text: description"></p>
-            <div class="d-flex justify-content-between w-100 align-items-center">
-                <div class="p-0">
-                    <small>Client: </small><small data-bind="text: client"></small>
-                </div>
-                <div class="p-0">
-                    <small>Product Area: </small><small data-bind="text: product_area"></small>
-                </div>
-                <div class="p-0">
-                    <small>Priority: </small><small data-bind="text: client_priority"></small>
+
+            <div data-bind="attr: { id: 'collapse' + $index(), 'aria-labelledby': 'heading'+$index() }" class="collapse"
+                data-parent="#accordionParent">
+                <div class="card-body">
+                    <p class="mb-1">Description: </p>
+                    <p class="mb-1 text-info" data-bind="text: $data.description"></p>
+
+                    <div class="d-flex justify-content-between p-1 w-100 align-items-center">
+                        <div class="p-0">
+                            <small>Client: </small><small data-bind="text: $data.client"></small>
+                        </div>
+                        <div class="p-0">
+                            <small>Product Area: </small><small data-bind="text: $data.product_area"></small>
+                        </div>
+                        <div class="p-0">
+                            <small>Priority: </small><small data-bind="text: $data.client_priority"></small>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </a>
+        </div>
     </div>
 </div>
 
@@ -91,7 +102,7 @@
                     <div class="row d-flex w-100 justify-content-around">
                         <div class="col align-items-center">
                             <!-- Product areas dropdown fetches data from the database through the API and KnockoutJS. -->
-                            <select data-bind="options: product_areas,
+                            <select data-bind="options: productAreas,
                                        optionsValue: 'id',
                                        optionsText: 'name',
                                        optionsCaption: 'Product Area'" class="form-control" name="product_area"

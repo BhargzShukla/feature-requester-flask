@@ -2,6 +2,10 @@
     width: 50rem;
 }
 
+.card-header {
+    width: auto;
+}
+
 h4#header_requests {
     margin-left: 40px;
     height: auto;
