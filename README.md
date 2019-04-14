@@ -43,7 +43,7 @@ There's a Docker instance currently deployed on Heroku, which you can [check out
 - Make sure ["docker-entrypoint.sh"](https://github.com/BhargzShukla/feature-requester-flask/blob/master/docker-entrypoint.sh) has executable permissions
 - Run the following commands to start an app instance
     >$ docker-compose build\
-    >$ docker-compose up -d\
+    >$ docker-compose up -d
 - Once again, open [http://localhost:5000](http://localhost:5000) on your favorite browser and get requestin'!
 - When you're done, you can run
     >$ docker stop `<id>`
