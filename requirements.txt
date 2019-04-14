@@ -15,6 +15,7 @@ MarkupSafe==1.1.1
 marshmallow==2.19.2
 marshmallow-sqlalchemy==0.16.1
 mccabe==0.6.1
+psycopg2-binary==2.8.2
 pycodestyle==2.5.0
 pycparser==2.19
 pyflakes==2.1.1
