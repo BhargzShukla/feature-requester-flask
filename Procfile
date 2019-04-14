@@ -1,0 +1,1 @@
+web: python manage.py drop_db; python manage.py create_db; python manage.py init_db; gunicorn manage:app
