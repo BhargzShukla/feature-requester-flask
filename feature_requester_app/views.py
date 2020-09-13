@@ -55,7 +55,7 @@ def get_all_clients():
     clients = Client.query.all()
     client_schema = ClientSchema()
     clients_json = client_schema.dump(clients, many=True)
-    return jsonify({'clients': clients_json.data})
+    return jsonify({'clients': clients_json})
 
 
 @app.route('/api/product_areas/', methods=['GET'])
@@ -66,7 +66,7 @@ def get_all_product_areas():
     product_areas = ProductArea.query.all()
     product_area_schema = ProductAreaSchema()
     product_areas_json = product_area_schema.dump(product_areas, many=True)
-    return jsonify({'product_areas': product_areas_json.data})
+    return jsonify({'product_areas': product_areas_json})
 
 
 @app.route('/api/feature_requests/', methods=['GET'])
@@ -80,7 +80,7 @@ def get_all_feature_requests():
         feature_requests,
         many=True
     )
-    return jsonify({'feature_requests': feature_requests_json.data})
+    return jsonify({'feature_requests': feature_requests_json})
 
 
 @app.route('/api/feature_requests/update/<int:id>/', methods=['POST'])
